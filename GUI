@@ -1,0 +1,46 @@
+import tkinter as tk
+from tkinter import messagebox
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+
+# Load the dataset and train models (KNN and Decision Tree)
+# Assume X_train, y_train are the training data from the dataset
+
+knn_model = KNeighborsClassifier(n_neighbors=3)
+knn_model.fit(X_train, y_train)
+
+dt_model = DecisionTreeClassifier(criterion='entropy', random_state=42)
+dt_model.fit(X_train, y_train)
+
+# Function to predict stress level based on user input
+def predict_stress_level(input_data):
+    knn_prediction = knn_model.predict(input_data)
+    dt_prediction = dt_model.predict(input_data)
+    return knn_prediction, dt_prediction
+
+# GUI setup
+def predict_stress_gui():
+    def predict():
+        # Get user input from GUI fields
+        # Preprocess the input data if needed
+        input_data = preprocess_user_input()
+
+        # Predict stress level using models
+        knn_pred, dt_pred = predict_stress_level(input_data)
+
+        # Display the predicted stress level to the user
+        messagebox.showinfo("Predicted Stress Level", f"KNN Prediction: {knn_pred}, Decision Tree Prediction: {dt_pred}")
+
+    root = tk.Tk()
+    root.title("Student Stress Level Predictor")
+
+    # Create GUI elements (labels, input fields, buttons)
+    # Define layout and positioning of GUI elements
+
+    predict_button = tk.Button(root, text="Predict Stress Level", command=predict)
+    predict_button.pack()
+
+    root.mainloop()
+
+# Run the GUI for stress level prediction
+predict_stress_gui()

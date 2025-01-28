@@ -1,0 +1,1 @@
+result =eval(input("Enter an expression: "));print("Result: ",result)
